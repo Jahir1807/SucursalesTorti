@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+
+    <!-- Script JS para cambiar color de fondo -->
+    <script>
+        function changeBackgroundColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+    </script>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+        <a th:href="@{/examplejs}">Ejemplo js</a>
+		<a th:href="@{/empleados}">Recursos Humanos</a>
+    </nav>
+
+    <!-- Contenido -->
+    <div class="center-content">
+        <!-- Pregunta centrada encima de los botones -->
+        <h1>¿TE GUSTA ESTE COLOR?</h1>
+
+        <!-- Contenedor de los botones en fila -->
+        <div class="button-container">
+            <button class="button blue" onclick="changeBackgroundColor('#4CAF50')">Verde</button>
+            <button class="button red" onclick="changeBackgroundColor('#FF6347')">Rojo</button>
+            <button class="button yellow" onclick="changeBackgroundColor('#FFD700')">Amarillo</button>
+        </div>
+
+    </div>
+</body>
+</html>
+
+<!-- Estilos CSS para diseño atractivo -->
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           font-family: Arial, sans-serif;
+       }
+
+       /* Encabezado */
+       .header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           background-color: #f4a400;
+           padding: 10px 20px;
+           border-bottom: 5px solid #000;
+       }
+
+       .logo h1 {
+           font-size: 30px;
+           font-weight: bold;
+           color: #000;
+       }
+
+       .user-info {
+           display: flex;
+           align-items: center;
+       }
+
+       .user-icon {
+           width: 30px;
+           height: 30px;
+           border-radius: 50%;
+       }
+
+       /* Navbar */
+       .navbar {
+           display: flex;
+           justify-content: space-evenly;
+           background-color: #ffc61a;
+           padding: 10px 0;
+           border-top: 2px solid #000;
+           flex-wrap: wrap;
+       }
+
+       .navbar a {
+           color: #000;
+           text-decoration: none;
+           font-size: 18px;
+           font-weight: bold;
+           padding: 5px 15px;
+           transition: background-color 0.3s, color 0.3s;
+       }
+
+       .navbar a:hover {
+           background-color: #000;
+           color: #ffc61a;
+           border-radius: 5px;
+       }
+
+       /* Contenido */
+       main {
+           height: calc(100vh - 150px);
+           background-color: #fff;
+           padding: 20px;
+       }
+
+       button {
+           display: block;
+           margin: 10px;
+           padding: 10px 20px;
+           font-size: 16px;
+           background-color: #f4a400;
+           color: #000;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+       }
+
+       .center-content {
+           display: flex;
+           flex-direction: column;  /* Coloca los elementos en columna */
+           justify-content: flex-start;  /* Alinea los elementos al principio */
+           align-items: center;      /* Centrado horizontal */
+           height: 60vh;             /* Ajusta el alto para que ocupe el 60% de la altura de la ventana */
+           text-align: center;       /* Asegura que el texto dentro de h1 esté centrado */
+           margin-top: 30px;         /* Desplaza un poco hacia abajo desde la parte superior */
+       }
+
+       /* Botones */
+       .button-container {
+           display: flex;
+           justify-content: space-evenly;  /* Acomoda los botones en fila */
+           width: 100%;  /* Asegura que los botones ocupen el 100% del ancho disponible */
+           margin-top: 20px;  /* Mueve los botones hacia arriba */
+           margin-bottom: 20px; /* Ajusta espacio inferior si es necesario */
+       }
+
+       .button {
+           padding: 15px 20px;
+           font-size: 18px;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           transition: transform 0.3s;
+           width: 20%;  /* Asegura que los botones ocupen un 30% del ancho */
+       }
+
+       .button:hover {
+           transform: scale(1.1);
+       }
+
+       .blue { background-color: #4CAF50; color: white; }
+       .red { background-color: #FF6347; color: white; }
+       .yellow { background-color: #FFD700; color: white; }
+       .back { 
+           background-color: #333; 
+           color: white; 
+           font-weight: bold; 
+           text-decoration: none;
+       }
+
+       .back:hover {
+           background-color: #555;
+       }
+
+       /* Media queries para hacer la página responsiva */
+       @media (max-width: 768px) {
+           .navbar {
+               flex-direction: column;
+               align-items: center;
+           }
+
+           .button-container {
+               flex-direction: column; /* En pantallas pequeñas, los botones se acomodan en columna */
+               width: 100%;
+               align-items: center;
+           }
+
+           .button {
+               width: 80%; /* Ocupa más espacio en pantallas pequeñas */
+               margin: 10px 0;
+           }
+       }
+   </style>

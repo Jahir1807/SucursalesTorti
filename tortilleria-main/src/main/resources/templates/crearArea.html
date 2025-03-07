@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de RH - Crear Área</title>
+    <link rel="stylesheet" th:href="@{/css/crearArea.css}">
+   
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+		<a th:href="@{/examplejs}">Ejemplo js</a>
+        <a th:href="@{/empleados}">Recursos Humanos</a>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h1>Crear Nueva Área</h1>
+            <form th:action="@{/areas/guardar}" th:object="${area}" method="post">
+                <label for="nombreArea">Nombre del área:</label>
+                <input type="text" id="nombreArea" th:field="*{nombreArea}" required>
+
+                <label for="descripcion">Descripción del área:</label>
+                <input type="text" id="descripcion" th:field="*{descripcion}">
+
+                <label for="responsable">Responsable del área:</label>
+                <input type="text" id="responsable" th:field="*{responsable}">
+
+                <div class="form-buttons">
+                    <button type="submit">Guardar</button>
+                    <a href="/areas" class="cancel-button">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+<style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           font-family: Arial, sans-serif;
+       }
+
+       body {
+           background-color: #f9f9f9;
+       }
+
+       .header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           background-color: #f4a400;
+           padding: 10px 20px;
+           border-bottom: 5px solid #000;
+       }
+
+       .logo h1 {
+           font-size: 30px;
+           font-weight: bold;
+           color: #000;
+       }
+
+       .user-info {
+           display: flex;
+           align-items: center;
+       }
+
+       .user-icon {
+           width: 30px;
+           height: 30px;
+           border-radius: 50%;
+       }
+
+       .navbar {
+           display: flex;
+           justify-content: space-evenly;
+           background-color: #ffc61a;
+           padding: 10px 0;
+           border-top: 2px solid #000;
+       }
+
+       .navbar a {
+           color: #000;
+           text-decoration: none;
+           font-size: 18px;
+           font-weight: bold;
+           padding: 5px 15px;
+           transition: background-color 0.3s, color 0.3s;
+       }
+
+       .navbar a:hover {
+           background-color: #000;
+           color: #ffc61a;
+           border-radius: 5px;
+       }
+
+       main {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: calc(100vh - 150px);
+           background-color: #fff;
+           padding: 20px;
+       }
+
+       .form-container {
+           background: #fff;
+           padding: 20px;
+           border-radius: 10px;
+           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+           width: 400px;
+       }
+
+       .form-container h1 {
+           text-align: center;
+           margin-bottom: 20px;
+           color: #333;
+       }
+
+       label {
+           font-weight: bold;
+           display: block;
+           margin: 10px 0 5px;
+       }
+
+       input {
+           width: 100%;
+           padding: 8px;
+           border: 1px solid #ccc;
+           border-radius: 5px;
+           font-size: 16px;
+       }
+
+       .form-buttons {
+           display: flex;
+           justify-content: space-between;
+           margin-top: 20px;
+       }
+
+       button {
+           padding: 10px 20px;
+           font-size: 16px;
+           background-color: #f4a400;
+           color: #000;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           width: 48%;
+       }
+
+       button:hover {
+           background-color: #d48a00;
+       }
+
+       .cancel-button {
+           text-align: center;
+           padding: 8px 13px;
+           background-color: #ccc;
+           color: #000;
+           text-decoration: none;
+           border-radius: 5px;
+           width: 45%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+       }
+
+       .cancel-button:hover {
+           background-color: #a6a6a6;
+       }
+   </style>

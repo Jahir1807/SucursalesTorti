@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Roles</title>
+    <link rel="stylesheet" th:href="@{/css/roles.css}">
+</head>
+<body>
+    <!-- Encabezado principal -->
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+        <a th:href="@{/examplejs}">Ejemplo js</a>
+        <a th:href="@{/empleados}">Recursos Humanos</a>
+    </nav>
+
+    <!-- Contenido de la página -->
+    <main>
+        <h1>Lista de Roles</h1>
+        <a class="btn-nuevo" th:href="@{/roles/nuevo}">Nuevo Rol</a>
+		<a class="btn-regresar" th:href="@{/empleados}">Regresar</a>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Área</th>
+                <th>Rol</th>
+                <th>Descripción</th>
+                <th>Responsable</th>
+                <th>Acciones</th>
+            </tr>
+            <tr th:each="rol : ${roles}">
+                <td th:text="${rol.id}"></td>
+                <td th:text="${rol.area.nombreArea}"></td>
+                <td th:text="${rol.rol}"></td>
+                <td th:text="${rol.descripcion}"></td>
+                <td th:text="${rol.responsable}"></td>
+                <td>
+                    <a class="btn-editar" th:href="@{/roles/editar/{id}(id=${rol.id})}">Editar</a> |
+					<a class="btn-eliminar" href="#" th:attr="data-id=${rol.id}" onclick="confirmarEliminar(this)">Eliminar</a>
+				</td>
+            </tr>
+        </table>
+    </main>
+</body>
+</html>
+
+<script>
+    function confirmarEliminar(element) {
+        let rolId = element.getAttribute("data-id");
+        let confirmacion = confirm("¿Estás seguro de que deseas eliminar este rol?");
+        if (confirmacion) {
+            window.location.href = "/roles/eliminar/" + rolId;
+        }
+    }
+</script>
+

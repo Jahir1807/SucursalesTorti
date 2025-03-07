@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de RH</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <!-- Encabezado principal -->
+	<header class="header">
+	    <div class="logo">
+	        <h1>TORTILLAS</h1>
+	        <span>La Toña</span>
+	    </div>
+		<div class="user-info">
+		        <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+		        <span th:text="${username}"></span>
+		</div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+		<a th:href="@{/index}" class="active">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+		<a th:href="@{/examplejs}">Ejemplo js</a>
+		<a th:href="@{/empleados}">Recursos Humanos</a>
+		<a th:href="@{/areas}"> AREAS</a>
+    </nav>
+
+	<!-- Contenido principal -->
+	<div class="center-content">
+	    <h1>HOLA, AYUDA</h1>
+	</div>
+</body>
+</html>

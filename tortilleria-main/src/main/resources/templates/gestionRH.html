@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de RH</title>
+	<link rel="stylesheet" th:href="@{/css/rh.css}">
+</head>
+<body>
+	
+	<!-- Encabezado principal -->
+		<header class="header">
+		    <div class="logo">
+		        <h1>TORTILLAS</h1>
+		        <span>La Toña</span>
+		    </div>
+			<div class="user-info">
+			        <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+			        <span th:text="${username}"></span>
+			</div>
+	    </header>
+
+	    <!-- Barra de navegación -->
+	    <nav class="navbar">
+			<a th:href="@{/index}">Inicio</a>
+	        <a th:href="@{/gestionRH}">RH</a>
+	        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+	        <a th:href="@{/administracion}">Administración</a>
+			<a th:href="@{/loginn}">Iniciar Sesión</a>
+			<a th:href="@{/examplejs}">Ejemplo js</a>
+	    </nav>
+		
+		<div>
+			
+	</div>
+	
+    	<h1>Estás en la vista de Gestión de Recursos Humanos</h1>
+		<h2>Está en proceso...</h2>
+		<!-- Enlace para volver al inicio -->
+		<a th:href="@{/index}">Volver a inicio</a>
+	
+	</div>
+</body>
+</html>

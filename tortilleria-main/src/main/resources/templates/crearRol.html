@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Roles</title>
+    <link rel="stylesheet" th:href="@{/css/roles.css}">
+    
+</head>
+<body>
+    <!-- Encabezado principal -->
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+        <a th:href="@{/examplejs}">Ejemplo js</a>
+        <a th:href="@{/empleados}">Recursos Humanos</a>
+    </nav>
+
+    <!-- Contenedor del formulario -->
+    <main>
+        <div class="form-container">
+            <h1>Crear Nuevo Rol</h1>
+            <form th:action="@{/roles/guardar}" th:object="${rol}" method="post">
+                <label>Área:</label>
+                <select th:field="*{area.id}">
+                    <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.nombreArea}"></option>
+                </select>
+
+                <label>Nombre del Rol:</label>
+                <input type="text" th:field="*{rol}" required>
+
+                <label>Descripción:</label>
+                <input type="text" th:field="*{descripcion}">
+
+                <label>Responsable:</label>
+                <input type="text" th:field="*{responsable}">
+
+                <div class="form-buttons">
+                    <button type="submit">Guardar</button>
+                    <a th:href="@{/roles}" class="cancel-button">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4a400;
+            padding: 15px 20px;
+            border-bottom: 5px solid #000;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            background-color: #ffc61a;
+            padding: 10px 0;
+            border-top: 2px solid #000;
+        }
+
+        .navbar a {
+            color: #000;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 5px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #000;
+            color: #ffc61a;
+            border-radius: 5px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f4a400;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+
+        button:hover {
+            background-color: #d48a00;
+        }
+
+        .cancel-button {
+            text-align: center;
+            padding: 10px;
+            background-color: #ccc;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 48%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cancel-button:hover {
+            background-color: #a6a6a6;
+        }
+    </style>

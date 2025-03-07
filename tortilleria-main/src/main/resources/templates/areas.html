@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de RH</title>
+    <link rel="stylesheet" th:href="@{/css/areas.css}">
+    <style>
+        /* Estilo para los botones de acción */
+        .btn-action {
+            display: inline-block; /* Hace que los botones estén en la misma línea */
+            margin-right: 5px; /* Espacio entre los botones */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+        <a th:href="@{/examplejs}">Ejemplo js</a>
+        <a th:href="@{/empleados}">Recursos Humanos</a>
+		<a th:href="@{/areas}" class="active">AREAS</a>
+    </nav>
+
+    <main>
+        <h1>Lista de Áreas</h1>
+        
+        <button onclick="openModal('createModal')" class="btn-areas">Nueva Área</button>
+        <a th:href="@{/empleados}" class="btn-regresar">Regresar</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Responsable</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="areasTableBody">
+                <tr th:each="area : ${areas}">
+                    <td th:text="${area.id}"></td>
+                    <td th:text="${area.nombreArea}"></td>
+                    <td th:text="${area.descripcion}"></td>
+                    <td th:text="${area.responsable}"></td>
+                    <td>
+                        <!-- Botón Editar -->
+                        <button class="btn-action" th:attr="onclick=|openEditModal('editModal', ${area.id}, '${area.nombreArea}', '${area.descripcion}', '${area.responsable}')|">Editar</button>
+                        <!-- Botón Eliminar -->
+                        <button class="btn-action" th:attr="onclick=|confirmarEliminacion(${area.id})|">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Modal para crear nueva área -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createModal')">&times;</span>
+            <h2>Nueva Área</h2>
+            <form id="createForm">
+                <label for="nombreArea">Nombre:</label>
+                <input type="text" id="nombreArea" name="nombreArea" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion">
+                <label for="responsable">Responsable:</label>
+                <input type="text" id="responsable" name="responsable">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para editar área -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editModal')">&times;</span>
+            <h2>Editar Área</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId" name="id">
+                <label for="editNombreArea">Nombre:</label>
+                <input type="text" id="editNombreArea" name="nombreArea" required>
+                <label for="editDescripcion">Descripción:</label>
+                <input type="text" id="editDescripcion" name="descripcion">
+                <label for="editResponsable">Responsable:</label>
+                <input type="text" id="editResponsable" name="responsable">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Funciones para abrir y cerrar modales
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Función para abrir el modal de edición con los datos del área
+        function openEditModal(modalId, id, nombreArea, descripcion, responsable) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombreArea').value = nombreArea;
+            document.getElementById('editDescripcion').value = descripcion;
+            document.getElementById('editResponsable').value = responsable;
+            openModal(modalId);
+        }
+
+        // Función para confirmar la eliminación de un área
+        function confirmarEliminacion(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta área?")) {
+                fetch('/areas/eliminar/' + id, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        removeAreaFromTable(id); // Eliminar el área de la tabla sin recargar
+                    } else {
+                        console.error("Error al eliminar el área");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Función para eliminar el área de la tabla
+        function removeAreaFromTable(id) {
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            if (row) {
+                row.remove();
+            }
+        }
+
+        // Manejar el envío del formulario de creación
+        document.getElementById('createForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar el envío tradicional del formulario
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/areas/guardar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(area => {
+                closeModal('createModal');
+                addAreaToTable(area); // Añadir el área a la tabla sin recargar
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Función para añadir el área a la tabla
+        function addAreaToTable(area) {
+            const tbody = document.getElementById('areasTableBody');
+            const row = document.createElement('tr');
+            row.setAttribute('data-id', area.id);
+
+            row.innerHTML = `
+                <td>${area.id}</td>
+                <td>${area.nombreArea}</td>
+                <td>${area.descripcion}</td>
+                <td>${area.responsable}</td>
+                <td>
+                    <button class="btn-action" onclick="openEditModal('editModal', ${area.id}, '${area.nombreArea}', '${area.descripcion}', '${area.responsable}')">Editar</button>
+                    <button class="btn-action" onclick="confirmarEliminacion(${area.id})">Eliminar</button>
+                </td>
+            `;
+
+            tbody.appendChild(row);
+        }
+
+        // Manejar el envío del formulario de edición
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar el envío tradicional del formulario
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/areas/guardar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(area => {
+                closeModal('editModal');
+                updateAreaInTable(area); // Actualizar el área en la tabla sin recargar
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Función para actualizar el área en la tabla
+        function updateAreaInTable(area) {
+            const row = document.querySelector(`tr[data-id="${area.id}"]`);
+            if (row) {
+                row.innerHTML = `
+                    <td>${area.id}</td>
+                    <td>${area.nombreArea}</td>
+                    <td>${area.descripcion}</td>
+                    <td>${area.responsable}</td>
+                    <td>
+                        <button class="btn-action" onclick="openEditModal('editModal', ${area.id}, '${area.nombreArea}', '${area.descripcion}', '${area.responsable}')">Editar</button>
+                        <button class="btn-action" onclick="confirmarEliminacion(${area.id})">Eliminar</button>
+                    </td>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <link rel="stylesheet" th:href="@{/css/empleados.css}"> <!-- Archivo de estilos -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4a400;
+            padding: 15px 20px;
+            border-bottom: 5px solid #000;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #ffc61a;
+            padding: 10px 0;
+            border-top: 2px solid #000;
+        }
+
+        .navbar a {
+            color: #000;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #000;
+            color: #ffc61a;
+            border-radius: 5px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-top: 20px; /* Evita que el formulario cubra la navbar */
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button, .cancel-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+            text-align: center;
+        }
+
+        button {
+            background-color: #f4a400;
+            color: #000;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #d48a00;
+        }
+
+        .cancel-button {
+            background-color: #ccc;
+            color: #000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cancel-button:hover {
+            background-color: #a6a6a6;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <a th:href="@{/index}">Inicio</a>
+        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+        <a th:href="@{/administracion}">Administración</a>
+        <a th:href="@{/examplejs}">Ejemplo js</a>
+        <a th:href="@{/empleados}">Recursos Humanos</a>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h2 th:text="${empleado.id == null} ? 'Nuevo Empleado' : 'Editar Empleado'"></h2>
+            <form th:action="@{/empleados/guardar}" method="post" th:object="${empleado}">
+                <input type="hidden" th:field="*{id}">
+
+                <label>Nombre:</label>
+                <input type="text" th:field="*{nombre}" required>
+
+                <label>Apellido Paterno:</label>
+                <input type="text" th:field="*{ap}" required>
+
+                <label>Apellido Materno:</label>
+                <input type="text" th:field="*{am}" required>
+
+                <label>RFC:</label>
+                <input type="text" th:field="*{rfc}" required>
+
+                <label>NSS:</label>
+                <input type="text" th:field="*{nss}" required>
+
+                <label>Teléfono:</label>
+                <input type="text" th:field="*{tel}">
+
+                <label>Área:</label>
+                <select th:field="*{area.id}">
+                    <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.nombreArea}"></option>
+                </select>
+
+                <label>Rol:</label>
+                <select th:field="*{rol.id}">
+                    <option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.rol}"></option>
+                </select>
+
+                <div class="form-buttons">
+                    <button type="submit">Guardar</button>
+                    <a href="/empleados" class="cancel-button">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

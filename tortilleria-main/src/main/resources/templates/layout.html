@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de RH</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <a th:href="@{/gestionRH}" th:classappend="${#httpServletRequest.requestURI == '/gestionRH' ? 'active' : ''}">RH</a>
+        <a th:href="@{/mantenimiento}" th:classappend="${#httpServletRequest.requestURI == '/mantenimiento' ? 'active' : ''}">Mantenimiento</a>
+        <a th:href="@{/administracion}" th:classappend="${#httpServletRequest.requestURI == '/administracion' ? 'active' : ''}">Administración</a>
+        <a th:href="@{/loginn}" th:classappend="${#httpServletRequest.requestURI == '/loginn' ? 'active' : ''}">Iniciar Sesión</a>
+        <a th:href="@{/examplejs}" th:classappend="${#httpServletRequest.requestURI == '/examplejs' ? 'active' : ''}">Ejemplo js</a>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <div th:replace="${body}"></div>  <!-- Esto se sustituirá por el contenido específico de cada vista -->
+    </div>
+</body>
+</html>

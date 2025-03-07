@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <link rel="stylesheet" th:href="@{/css/empleados.css}"> <!-- Archivo de estilos -->
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="logo">
+            <h1>TORTILLAS</h1>
+            <span>La Toña</span>
+        </div>
+        <div class="user-info">
+            <img th:src="@{/image/usuario.png}" alt="Usuario" class="user-icon">
+            <span th:text="${username}"></span>
+        </div>
+    </header>
+
+    <!-- Barra de Navegación -->
+	<nav class="navbar">
+	        <a th:href="@{/index}">Inicio</a>
+	        <a th:href="@{/mantenimiento}">Mantenimiento</a>
+	        <a th:href="@{/administracion}">Administración</a>
+	        <a th:href="@{/examplejs}">Ejemplo js</a>
+	        <a th:href="@{/empleados}">Recursos Humanos</a>
+	    </nav>
+
+    <!-- Contenido Principal -->
+    <main>
+        <h1>Lista de Empleados</h1>
+        
+		<div class="botones-acciones">
+		            <a th:href="@{/empleados/nuevo}" class="btn-accion btn-nuevo">➕ Nuevo Empleado</a>
+		            <a th:href="@{/roles}" class="btn-accion btn-roles">📋 Ver Roles</a>
+		            <a th:href="@{/areas}" class="btn-accion btn-areas">🏢 Ver Áreas</a>
+		</div>
+        <!-- Tabla de Empleados -->
+        <table class="tabla-empleados">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Área</th>
+                    <th>Rol</th>
+                    <th>RFC</th>
+                    <th>NSS</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${empleados}">
+                    <td th:text="${empleado.id}"></td>
+                    <td th:text="${empleado.nombre}"></td>
+                    <td th:text="${empleado.ap}"></td>
+                    <td th:text="${empleado.am}"></td>
+                    <td th:text="${empleado.area.nombreArea}"></td>
+                    <td th:text="${empleado.rol.rol}"></td>
+                    <td th:text="${empleado.rfc}"></td>
+                    <td th:text="${empleado.nss}"></td>
+                    <td th:text="${empleado.tel}"></td>
+                    <td>
+                        <a th:href="@{/empleados/editar/{id}(id=${empleado.id})}" class="btn-editar">✏️ Editar</a>
+                        <a th:href="@{/empleados/eliminar/{id}(id=${empleado.id})}" class="btn-eliminar"
+						onclick="return confirm('¿Estás seguro de eliminar este empleado?')">❌ Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+</body>
+</html>

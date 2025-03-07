@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4a400;
+    padding: 10px 20px;
+    border-bottom: 5px solid #000;
+}
+
+.logo h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #ffc61a;
+    padding: 10px 0;
+    border-top: 2px solid #000;
+}
+
+.navbar a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a.active {
+    background-color: #000;
+    color: #ffc61a;
+    border-radius: 5px;
+}
+
+
+.navbar a:hover {
+    background-color: #000;
+    color: #ffc61a;
+    border-radius: 5px;
+}
+
+/* Contenido */
+main {
+    height: calc(100vh - 150px);
+    background-color: #fff;
+    padding: 20px;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f4a400;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.center-content {
+    display: flex;
+    justify-content: center;  /* Centrado horizontal */
+    align-items: center;      /* Centrado vertical */
+    height: 80vh;             /* Ajusta el alto para que ocupe el 80% de la altura de la ventana */
+    text-align: center;       /* Asegura que el texto dentro de h1 esté centrado */
+}

@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4a400;
+    padding: 10px 20px;
+    border-bottom: 5px solid #000;
+}
+
+.logo h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #ffc61a;
+    padding: 10px 0;
+    border-top: 2px solid #000;
+}
+
+.navbar a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #000;
+    color: #ffc61a;
+    border-radius: 5px;
+}
+
+/* Contenido */
+main {
+    padding: 20px;
+}
+
+/* Estilo de la Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo de las Celdas y Encabezado */
+th {
+    background-color: #f4a400;
+    color: black;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternar Colores en las Filas */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #ffeeba;
+    transition: 0.3s;
+}
+
+/* Botones */
+.btn-nuevo, .btn-roles, .btn-areas, .btn-regresar{
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-nuevo { background-color: #28a745; }
+.btn-roles { background-color: rgb(29, 61, 243); }
+.btn-areas { background-color: rgb(171, 11, 249); }
+.btn-regresar { background-color: rgb(255, 255, 0); }
+
+.btn-nuevo:hover { background-color: #218838; }
+
+/* Botones de acción */
+.btn-editar, .btn-eliminar {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-editar { background-color: #007bff; }
+.btn-editar:hover { background-color: #0056b3; }
+
+.btn-eliminar { background-color: #dc3545; }
+.btn-eliminar:hover { background-color: #c82333; }

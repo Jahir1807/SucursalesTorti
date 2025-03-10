@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-   <parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.0</version>
@@ -17,6 +17,9 @@
     <name>mi-proyecto</name>
     <description>Proyecto Spring Boot con seguridad</description>
 
+    <!-- Cambia el empaquetado a WAR -->
+    <packaging>war</packaging>
+
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -27,31 +30,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
+
         <!-- Spring Boot Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
+
         <!-- Thymeleaf con Spring Security -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
-        
+
         <!-- Base de datos y JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-    <groupId>com.microsoft.sqlserver</groupId>
-    <artifactId>mssql-jdbc</artifactId>
-    <scope>runtime</scope>
-</dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-        
         <!-- Spring Boot DevTools (para desarrollo) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,7 +61,14 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        
+
+        <!-- Tomcat como `provided` para que el WAR pueda desplegarse externamente -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Pruebas -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,6 +82,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <packaging>war</packaging>
+                </configuration>
             </plugin>
         </plugins>
     </build>
